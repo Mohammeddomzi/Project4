@@ -10,17 +10,25 @@ The team's project is comprised of 2 applications.
 
 You'll find 2 folders, one named `frontend` and one named `backend`, where each application's source code is maintained. Your job is to use the team's [existing documentation](#frontend-development-notes) and create CI/CD pipelines to meet the teams' needs.
 
-## 🚀 Quick Start
+## 🚀 Deployed Application
 
-**New to this project?** Check out the comprehensive [**Setup Guide**](SETUP_GUIDE.md) for step-by-step instructions.
+### Live URLs
+
+- **Frontend Application**: `http://aad7d89105ccb4addac5065d7107d19c-1405076523.us-east-1.elb.amazonaws.com`
+- **Backend API**: `http://a66d8d8f200a24c31b1a64e62f705ccc-910932871.us-east-1.elb.amazonaws.com/movies`
+
+### AWS Infrastructure
+
+- **Region**: us-east-1
+- **EKS Cluster**: cluster (v1.28)
+- **Frontend ECR**: `327865590049.dkr.ecr.us-east-1.elb.amazonaws.com/frontend`
+- **Backend ECR**: `327865590049.dkr.ecr.us-east-1.elb.amazonaws.com/backend`
 
 ## CI/CD Status
 | Aspect               | Continuous Integration                                                                                                     | Continuous Deployment                                                                                                    |
 |----------------------|----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| **Backend**          | ![Backend CI](https://github.com/YOUR_USERNAME/movie-picture-pipeline/actions/workflows/backend-ci.yml/badge.svg)  | ![Backend CD](https://github.com/YOUR_USERNAME/movie-picture-pipeline/actions/workflows/backend-cd.yml/badge.svg) |
-| **Frontend**         | ![Frontend CI](https://github.com/YOUR_USERNAME/movie-picture-pipeline/actions/workflows/frontend-ci.yml/badge.svg)| ![Frontend CD](https://github.com/YOUR_USERNAME/movie-picture-pipeline/actions/workflows/frontend-cd.yml/badge.svg)|
-
-> **Note**: Replace `YOUR_USERNAME` with your actual GitHub username in the badges above.
+| **Backend**          | ![Backend CI](https://github.com/Mohammeddomzi/Project4/actions/workflows/backend-ci.yml/badge.svg)  | ![Backend CD](https://github.com/Mohammeddomzi/Project4/actions/workflows/backend-cd.yml/badge.svg) |
+| **Frontend**         | ![Frontend CI](https://github.com/Mohammeddomzi/Project4/actions/workflows/frontend-ci.yml/badge.svg)| ![Frontend CD](https://github.com/Mohammeddomzi/Project4/actions/workflows/frontend-cd.yml/badge.svg)|
 
 
 ## Deliverables
@@ -479,6 +487,40 @@ kustomize edit set image backend=<ECR_REPO_URL>:<NEW_TAG_HERE>
 # Apply the manifests to the cluster
 kustomize build | kubectl apply -f -
 ```
+
+## 📸 Screenshots
+
+All project screenshots documenting the CI/CD pipeline execution and deployment are available in the `Screenshots/` directory:
+
+1. **Frontend CI Workflow** - Lint, Test, and Build jobs running in parallel
+2. **Frontend CD Workflow** - Automated deployment to Kubernetes
+3. **Kubernetes Deployment** - Pods and Services running in EKS cluster
+4. **Backend CD Workflow** - Automated deployment to Kubernetes
+5. **Backend CI Workflow** - Lint, Test, and Build jobs running in parallel
+6. **ECR Backend Image** - Docker image pushed to Amazon ECR
+7. **ECR Frontend Image** - Docker image pushed to Amazon ECR
+8. **Backend API Response** - Movies endpoint returning JSON data
+9. **Frontend Application** - Working application displaying movie list
+
+## 🚀 GitHub Actions Workflows
+
+This project includes 4 automated workflows:
+
+### Continuous Integration (CI)
+- **frontend-ci.yml**: Runs on pull requests, performs linting, testing, and Docker build
+- **backend-ci.yml**: Runs on pull requests, performs linting, testing, and Docker build
+
+### Continuous Deployment (CD)
+- **frontend-cd.yml**: Runs on merge to main, builds image with git SHA tag, pushes to ECR, deploys to EKS
+- **backend-cd.yml**: Runs on merge to main, builds image with git SHA tag, pushes to ECR, deploys to EKS
+
+All workflows support manual triggering via `workflow_dispatch`.
+
+## 🔐 Security
+
+- AWS credentials are stored as GitHub Secrets (no hardcoded credentials)
+- Docker images are tagged with git SHA for traceability
+- IAM user with minimal required permissions for GitHub Actions
 
 ## License
 
